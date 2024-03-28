@@ -77,7 +77,20 @@
 		</style>
 		<script type="module">
 			/* Schrijf hier eventueel je client-side JavaScript */
+			const close = document.querySelector('path');
+			const menu = document.querySelector('nav');
+			const menuBTN = document.querySelector('.menuBTN');
+			const filterDiv = document.querySelector('article div:first-child'); // Selecteer de eerste div
 
+			menuBTN.addEventListener('click', function(){
+				menu.classList.toggle('show'); // Voeg of verwijder de 'show'-klasse voor het menu
+				filterDiv.classList.toggle('filter'); // Voeg of verwijder de 'filter'-klasse voor de eerste div
+			});
+
+			close.addEventListener('click', function(){
+				menu.classList.remove('show'); // Verwijder de 'show'-klasse van het menu
+				filterDiv.classList.remove('filter'); // Verwijder de 'filter'-klasse van de eerste div
+			});
 			/* Hint: dit component kan volledig met CSS, maar met JS kun je 'm helemaal afmaken */
 		</script>
 	</head>
@@ -130,23 +143,6 @@
 					<p>Suspendisse malesuada, nulla eget iaculis fermentum, libero dolor vestibulum urna, ut auctor dolor diam ut dolor. Nullam mollis congue luctus. Fusce nulla dolor, faucibus nec volutpat eget, consequat quis nisl. Cras id diam efficitur, congue lectus ac, vulputate leo. Morbi odio velit, finibus id ornare sit amet, luctus ut eros. Fusce fringilla eu diam quis tempor. Proin pretium purus a fringilla semper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin lorem diam, laoreet at lectus quis, lobortis tempor tortor. Vivamus semper, ex convallis iaculis suscipit, risus augue bibendum sapien, nec volutpat lacus quam finibus arcu. Nunc non consectetur eros, eu viverra metus. Aliquam nisl risus, condimentum et sapien id, rutrum interdum odio. Nulla facilisi. Ut ac egestas quam.</p>
 				</div> 
 			</article>
-		</main>
-		<script>
-			const close = document.querySelector('path');
-			const menu = document.querySelector('nav');
-			const menuBTN = document.querySelector('.menuBTN');
-			const filterDiv = document.querySelector('article div:first-child'); // Selecteer de eerste div
-
-			menuBTN.addEventListener('click', function(){
-				menu.classList.toggle('show'); // Voeg of verwijder de 'show'-klasse voor het menu
-				filterDiv.classList.toggle('filter'); // Voeg of verwijder de 'filter'-klasse voor de eerste div
-			});
-
-			close.addEventListener('click', function(){
-				menu.classList.remove('show'); // Verwijder de 'show'-klasse van het menu
-				filterDiv.classList.remove('filter'); // Verwijder de 'filter'-klasse van de eerste div
-			});
-
-		</script>	
+		</main>	
 	</body>
 </html>
