@@ -7,8 +7,22 @@
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 		<link href="assets/styles.css" rel="stylesheet">
 		<style>
-			/* Schrijf hier gewoon je CSS voor dit component */
-			.switch {
+/* Schrijf hier gewoon je CSS voor dit component */
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+
+body{
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+}
+
+.switch {
   position: relative;
   display: inline-block;
   width: 120px;
@@ -45,13 +59,24 @@
   transition: .4s;
 }
 
-input:checked + .slider {
-	background: linear-gradient(45deg, #fb0094, #00f, #0f0, #ff0, #f00, #fb0094, #00f, #0f0, #ff0, #f00);
-	background-size: 400%;
-	/*opacity: 0;*/
-	filter: blur(20px);
-	transition: 0.5s;
-	animation: animate 20s linear infinite;
+@supports (background: linear-gradient(#fff, #000)) {
+    input:checked + .slider {
+        background: linear-gradient(45deg, #fb0094, #00f, #0f0, #ff0, #f00, #fb0094, #00f, #0f0, #ff0, #f00);
+        background-size: 400%;
+        /*opacity: 0;*/
+        /* filter: blur(20px); */
+        transition: 0.5s;
+        animation: animate 20s linear infinite;
+    }
+}
+
+/* Fallback voor browsers die geen lineaire gradiënten ondersteunen */
+@supports not (background: linear-gradient(#fff, #000)) {
+    input:checked + .slider {
+        background-color: blue; /* Vervang dit door de gewenste fallback-kleur */
+        transition: 0.5s;
+        /* Voeg eventueel andere fallback-stijlen toe */
+    }
 }
 
 @keyframes animate
@@ -90,6 +115,138 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+#text{
+	display: none;
+}
+
+.js main{
+	align-items: flex-end;
+}
+
+main{
+	height: 100vh;
+    display: flex;
+	align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.js main div:nth-child(1){
+    background-color: var(--green);
+	border-color: var(--blue);
+	color: var(--blue);
+}
+
+.js main div:nth-child(2){
+    background-color: var(--purple);
+	border-color: var(--blue);
+	color: var(--blue);
+	animation-delay: 2s;
+}
+
+.js main div:nth-child(3){
+    background-color: var(--blue);
+	border-color: var(--green);
+	color: var(--green);
+	animation-delay: 4s;
+}
+
+main div:nth-child(1)::before{
+	content: 'we';
+}
+
+
+main div:nth-child(2)::before{
+	content: 'love';
+}
+
+
+main div:nth-child(3)::before{
+	content: 'fdnd';
+}
+
+main div:nth-child(1){
+	width: 5em;
+    height: 5em;
+	color: black;
+    background-color: transparent;
+	border: solid;
+	border-color: black;
+    text-align: center;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	font-weight: bolder;
+}
+
+main div:nth-child(2){
+	width: 5em;
+    height: 5em;
+	color: black;
+    background-color: transparent;
+	border: solid;
+	border-color: black;
+    text-align: center;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	font-weight: bolder;
+	animation-delay: 2s;
+}
+
+main div:nth-child(3){
+	width: 5em;
+    height: 5em;
+	color: black;
+    background-color: transparent;
+	border: solid;
+	border-color: black;
+    text-align: center;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	font-weight: bolder;
+	animation-delay: 4s;
+}
+.bodyanimatie{
+	animation: colors;
+	animation-duration: 8s;
+}
+
+@keyframes colors {
+        0% {
+          background-color: var(--green);
+        }
+		50%{
+			background-color: var(--purple);
+		}
+        100% {
+			background-color: var(--blue);
+        }
+      }
+
+.animatie{
+	animation: up;
+	animation-duration: 4s;
+}
+
+@keyframes up {
+        0% {
+          transform: translateY(0);
+        }
+		50%{
+			transform: translateY(-200px);
+		}
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+	  
+
 			/* Hint: Dit component kun je volledig met HTML en CSS bouwen */
 
 			/* Hint: Hoe ver ga je qua styling? Vraag jezelf dit altijd af */
@@ -108,8 +265,44 @@ input:checked + .slider:before {
 		</details>
 
 		<label class="switch">
-			<input type="checkbox">
+			<input type="checkbox" onchange="document.getElementById('text').hidden = !this.checked;">
 			<span class="slider round"></span>
 		</label>
+
+		<p id="text" hidden>We love fdnd</p>
+
+	<main>
+		<div><p></p></div>
+		<div><p></p></div>
+		<div><p></p></div>
+	</main>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const checkbox = document.querySelector('.switch input[type="checkbox"]');
+			const divs = document.querySelectorAll('main div');
+			const body = document.querySelector('body');
+			const htmlElement = document.documentElement;
+
+
+			htmlElement.classList.add("js");
+	
+			checkbox.addEventListener('change', function() {
+				if (this.checked) {
+					divs.forEach((div, index) => {
+						setTimeout(() => {
+							div.classList.add('animatie');
+						}, index * 200); // 200ms delay between each animation
+					});
+					body.classList.add('bodyanimatie');
+				} else {
+					divs.forEach(div => {
+						div.classList.remove('animatie');
+					});
+					body.classList.remove('bodyanimatie');
+				}
+			});
+		});
+	</script>
 	</body>
 </html>
