@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rating / Progressive Enhancement / FDND</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<link href="assets/styles.css" rel="stylesheet">
+<style>
+/* CSS-code hier */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+svg {
+  width: 5em;
+  margin: 0.5em;
+  transition: fill 0.3s ease;
+}
+
+svg:hover path,
+.rating-form .filled path {
+  fill: #66E5BF;
+}
+
+.rating-form {
+  display: flex;
+  align-items: center;
+}
+
+.rating-form svg {
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<h1>Rating</h1>
+<form method="post" class="rating-form">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="star">
+  <path fill="none" stroke="#66E5BF" stroke-width="2" d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="star">
+  <path fill="none" stroke="#66E5BF" stroke-width="2" d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="star">
+  <path fill="none" stroke="#66E5BF" stroke-width="2" d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="star">
+  <path fill="none" stroke="#66E5BF" stroke-width="2" d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="star">
+  <path fill="none" stroke="#66E5BF" stroke-width="2" d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
+</svg>
+</form>
+<details>
+<summary>Demo video</summary>
+<video src="assets/rating.mp4" width="271" height="110" controls muted autoplay loop>
+<a href="assets/rating.mp4">assets/rating.mp4</a>
+</video>
+</details>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const stars = document.querySelectorAll('.star');
+  stars.forEach(star => {
+    star.addEventListener('click', function() {
+      
+      stars.forEach(s => s.classList.remove('filled'));
+      
+      this.classList.add('filled');
+      let prev = this.previousElementSibling;
+      while (prev) {
+        prev.classList.add('filled');
+        prev = prev.previousElementSibling;
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
