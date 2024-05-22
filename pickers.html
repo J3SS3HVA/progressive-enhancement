@@ -1,54 +1,166 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="nl">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
-		<title>Favorieten picker / Progressive Enhancement / FDND</title>
-		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-		<link href="assets/styles.css" rel="stylesheet">
-		<style>
-			/* Schrijf hier gewoon je CSS voor dit component */
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Favorieten picker / Progressive Enhancement / FDND</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <link href="assets/styles.css" rel="stylesheet" />
+    <style>
+      /* Schrijf hier gewoon je CSS voor dit component */
+      .datalist {
+        background-color: var(--green);
+        width: 20em;
+        height: 10em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+      }
 
-			/* Hint: Dit component kun je volledig met HTML en CSS bouwen */
+      .purple{
+        background-color: var(--purple);
+      }
 
-			/* Hint: Kijk eens naar field-sizing */
-		</style>
-	</head>
+      .datalist input {
+        border-radius: 5px;
+        border: none;
+        height: 2em;
+        font-size: 16px;
+        text-align: center;
+        font-weight: 900;
+        width: 10em;
+      }
 
-	<body>
-		<h1>Favorieten picker</h1>
+      .colors {
+        display: flex;
+        width: 4em;
+        border: none;
+        /* background-color: transparent; */
+        box-shadow: 0px 0px 49px 15px rgb(0 0 0 / 25%);
+        border-radius: 20px;
+      }
 
-		<form>
+      .colors label{
+        display:grid;
+	      place-items:center;
+	      line-height:1;
+        color: var(--green);
+        width: 1.2em;
 
-			<!-- Hint: hoe kun je aan een invoerelement een lijst meegeven? -->
+      }
 
-			<!-- Een lijstje met docenten
-			Berat Zekaj
-			Charley Muhren
-			Cyd Stumpel
-			Dorien Drees
-			Joost Faber
-			Justus Sturkenboom
-			Koop Reijnders
-			Krijn Hoetmer
-			Sanne 't Hooft
-			Suus ten Voorde
-			-->
+      .colors label:hover:after{
+          border: solid black 2px;
+          width: min-content;
+          height: 1em;
+      }
 
-			<!-- De kleurcodes van FDND:
+      .colors label:nth-child(2){
+        color: var(--purple);
+      }
+
+      .colors label:nth-child(4){
+        color: var(--blue);
+      }
+
+      .colors label:nth-child(6){
+        color: var(--green);
+      }
+
+      .colors label:nth-child(8){
+        color: var(--yellow);
+      }
+
+      .colors label::after{
+        content: '■';
+        font-size: 2em;
+      }
+
+      .colors input{
+        position: absolute;
+        left: -9999em;
+      }
+
+      /* Hint: Dit component kun je volledig met HTML en CSS bouwen */
+
+      /* Hint: Kijk eens naar field-sizing */
+    </style>
+  </head>
+
+  <body>
+    <h1>Favorieten picker</h1>
+
+    <form>
+      <fieldset class="datalist">
+        <input type="text" list="docenten-lijst" />
+
+        <datalist id="docenten-lijst">
+          <option value="Berat Zekaj"></option>
+          <option value="Charley Muhren"></option>
+          <option value="Cyd Stumpel"></option>
+          <option value="Dorien Drees"></option>
+          <option value="Joost Faber"></option>
+          <option value="Justus Sturkenboom"></option>
+          <option value="Koop Reijnders"></option>
+          <option value="Krijn Hoetmer"></option>
+          <option value="Sanne 't Hooft"></option>
+          <option value="Suus ten Voorde"></option>
+        </datalist>
+      </fieldset>
+      <fieldset class="colors">
+        <input type="radio" id="purple" name="color-picker" value="PURPLE" />
+        <label for="purple"></label>
+        <input type="radio" id="blue" name="color-picker" value="BLUE" />
+        <label for="blue"></label>
+        <input type="radio" id="green" name="color-picker" value="GREEN" />
+        <label for="green"></label>
+        <input type="radio" id="yellow" name="color-picker" value="YELLOW" />
+        <label for="yellow"></label>
+      </fieldset>
+
+      <!-- Hint: hoe kun je aan een invoerelement een lijst meegeven? -->
+      <!-- De kleurcodes van FDND:
 			#A675F5
 			#050542
 			#66E5BF
 			#FFFC86
 			-->
+    </form>
+    <details>
+      <summary>Demo video</summary>
+      <video
+        src="assets/pickers.mp4"
+        width="749"
+        height="417"
+        controls
+        muted
+        autoplay
+        loop
+      >
+        <a href="assets/pickers.mp4">assets/pickers.mp4</a>
+      </video>
+    </details>
 
-		</form>
+    <script>
+      const input = document.querySelector("input"); // get the input element
+      input.addEventListener("input", resizeInput); // bind the "resizeInput" callback on "input" event
+      resizeInput.call(input); // immediately call the function
 
-		<details open>
-			<summary>Demo video</summary>
-			<video src="assets/pickers.mp4" width="749" height="417" controls muted autoplay loop>
-				<a href="assets/pickers.mp4">assets/pickers.mp4</a>
-			</video>
-		</details>
-	</body>
+      function resizeInput() {
+        this.style.width = this.value.length + "em";
+      }
+
+      const purple = document.querySelector(".colors label:nth-child(2)")
+      const background = document.querySelector(".datalist")
+
+      if(purple.checked == true){
+        background.classList.add('purple')
+      }
+    </script>
+  </body>
 </html>
