@@ -22,11 +22,12 @@
         border-radius: 20px;
       }
 
-      .purple{
+      .purple {
         background-color: var(--purple);
       }
 
       .datalist input {
+        position: absolute;
         border-radius: 5px;
         border: none;
         height: 2em;
@@ -34,6 +35,7 @@
         text-align: center;
         font-weight: 900;
         width: 10em;
+        z-index: 9999;
       }
 
       .colors {
@@ -43,49 +45,164 @@
         /* background-color: transparent; */
         box-shadow: 0px 0px 49px 15px rgb(0 0 0 / 25%);
         border-radius: 20px;
+        visibility: visible;
       }
 
-      .colors label{
-        display:grid;
-	      place-items:center;
-	      line-height:1;
+      .colors label {
+        display: grid;
+        place-items: center;
+        line-height: 1;
         color: var(--green);
         width: 1.2em;
-
       }
 
-      .colors label:hover:after{
-          border: solid black 2px;
-          width: min-content;
-          height: 1em;
+      .colors label:hover:after {
+        border: solid black 2px;
+        width: min-content;
+        height: 1em;
       }
 
-      .colors label:nth-child(2){
+      .colors label:nth-child(2) {
         color: var(--purple);
       }
 
-      .colors label:nth-child(4){
+      .colors label:nth-child(4) {
         color: var(--blue);
       }
 
-      .colors label:nth-child(6){
+      .colors label:nth-child(6) {
         color: var(--green);
       }
 
-      .colors label:nth-child(8){
+      .colors label:nth-child(8) {
         color: var(--yellow);
       }
 
-      .colors label::after{
-        content: '■';
+      .colors label::after {
+        content: "■";
         font-size: 2em;
       }
 
-      .colors input{
+      .colors input {
         position: absolute;
         left: -9999em;
       }
+      /* animation https://codepen.io/mohaiman/pen/MQqMyo */
 
+      .area {
+        background: #4e54c8;
+        background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+      }
+
+      .circles {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .circles li {
+        position: absolute;
+        display: block;
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        animation: animate 25s linear infinite;
+        bottom: -150px;
+      }
+
+      .circles li:nth-child(1) {
+        left: 25%;
+        width: 80px;
+        height: 80px;
+        animation-delay: 0s;
+      }
+
+      .circles li:nth-child(2) {
+        left: 10%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 2s;
+        animation-duration: 12s;
+      }
+
+      .circles li:nth-child(3) {
+        left: 70%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 4s;
+      }
+
+      .circles li:nth-child(4) {
+        left: 40%;
+        width: 60px;
+        height: 60px;
+        animation-delay: 0s;
+        animation-duration: 18s;
+      }
+
+      .circles li:nth-child(5) {
+        left: 65%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 0s;
+      }
+
+      .circles li:nth-child(6) {
+        left: 75%;
+        width: 110px;
+        height: 110px;
+        animation-delay: 3s;
+      }
+
+      .circles li:nth-child(7) {
+        left: 35%;
+        top: 180px;
+        width: 150px;
+        height: 150px;
+        animation-delay: 7s;
+      }
+
+      .circles li:nth-child(8) {
+        left: 50%;
+        width: 25px;
+        height: 25px;
+        animation-delay: 15s;
+        animation-duration: 45s;
+      }
+
+      .circles li:nth-child(9) {
+        left: 20%;
+        width: 15px;
+        height: 15px;
+        animation-delay: 2s;
+        animation-duration: 35s;
+      }
+
+      .circles li:nth-child(10) {
+        left: 85%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 0s;
+        animation-duration: 11s;
+      }
+
+      @keyframes animate {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+          border-radius: 0;
+        }
+
+        100% {
+          transform: translateY(-1000px) rotate(720deg);
+          opacity: 0;
+          border-radius: 50%;
+        }
+      }
+      /* animation end */
       /* Hint: Dit component kun je volledig met HTML en CSS bouwen */
 
       /* Hint: Kijk eens naar field-sizing */
@@ -96,7 +213,7 @@
     <h1>Favorieten picker</h1>
 
     <form>
-      <fieldset class="datalist">
+      <fieldset class="datalist area">
         <input type="text" list="docenten-lijst" />
 
         <datalist id="docenten-lijst">
@@ -111,8 +228,22 @@
           <option value="Sanne 't Hooft"></option>
           <option value="Suus ten Voorde"></option>
         </datalist>
+        <!-- animation https://codepen.io/mohaiman/pen/MQqMyo -->
+        <ul class="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <!-- animation end -->
       </fieldset>
-      <fieldset class="colors">
+      <fieldset class="colors" hidden>
         <input type="radio" id="purple" name="color-picker" value="PURPLE" />
         <label for="purple"></label>
         <input type="radio" id="blue" name="color-picker" value="BLUE" />
@@ -147,20 +278,30 @@
     </details>
 
     <script>
-      const input = document.querySelector("input"); // get the input element
-      input.addEventListener("input", resizeInput); // bind the "resizeInput" callback on "input" event
-      resizeInput.call(input); // immediately call the function
+      document.addEventListener("DOMContentLoaded", function () {
+        const datalist = document.querySelector(".datalist");
+        // const colorInputs = document.querySelectorAll(".colors input");
+        const input = document.querySelector("input[type='text']");
 
-      function resizeInput() {
-        this.style.width = this.value.length + "em";
-      }
+        // // Luister naar verandering van de kleurkeuzes
+        // colorInputs.forEach((input) => {
+        //   input.addEventListener("change", function () {
+        //     datalist.className = "datalist"; // Reset de class naam
+        //     if (this.checked) {
+        //       datalist.classList.add(this.value); // Voeg de nieuwe kleur toe
+        //     }
+        //   });
+        // });
 
-      const purple = document.querySelector(".colors label:nth-child(2)")
-      const background = document.querySelector(".datalist")
+        input.addEventListener("input", resizeInput); // bind the "resizeInput" callback on "input" event
 
-      if(purple.checked == true){
-        background.classList.add('purple')
-      }
+        function resizeInput() {
+          // Stel de breedte in op 4em plus de lengte van de ingevoerde tekst
+          this.style.width = this.value.length + 4 + "em"; // Adjust for initial width
+        }
+
+        resizeInput.call(input); // immediately call the function to set initial width
+      });
     </script>
   </body>
 </html>
